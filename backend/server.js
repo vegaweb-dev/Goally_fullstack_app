@@ -10,9 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
 //Routes
-app.get('/', (req, res) => {
-  res.json({ working: 'fine' });
-});
+app.use('/api/goals', require('./routes/goalRoutes'));
 //Database
 
 //Starting server
