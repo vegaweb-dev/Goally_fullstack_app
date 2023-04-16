@@ -4,8 +4,8 @@
   "description": "Goally app ",
   "main": "server.js",
   "scripts": {
-    "start" : "node backend/server",
-    "server":"nodemon backend/server"
+    "start": "node backend/server",
+    "server": "nodemon backend/server"
   },
   "author": "Carlos Vega",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "colors": "^1.4.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
     "morgan": "^1.10.0"
