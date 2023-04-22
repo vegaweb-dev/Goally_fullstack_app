@@ -16,6 +16,7 @@ app.use(morgan('combined'));
 
 //Routes
 app.use('/api/goals', require('./routes/goalRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 app.use(errorHandler);
 //Database
 
