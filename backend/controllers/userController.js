@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const User = require('../model/userModel');
 
+
 //@description   Register new User
 //@route         Post api/users
 //@access        public
@@ -41,6 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       _id: user.id,
+      token:generateToken(user._id)
     });
   } else {
     res.status(400);
@@ -56,13 +58,17 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  console.log(user,'aqui')
+  // console.log(user,'aqui')
+  console.log(await bcrypt.compare(password, user.password))
 
   if (user && (await bcrypt.compare(password, user.password))) {
+    
     res.status(201).json({
       name: user.name,
       email: user.email,
       _id: user.id,
+      token:generateToken(user._id)
+
     });
   } else {
     res.status(400);
@@ -76,5 +82,10 @@ const loginUser = asyncHandler(async (req, res) => {
 const getMe = asyncHandler(async (req, res) => {
   res.json({ message: 'user data display' });
 });
+
+//Genereate JWT
+const generateToken = (id)=>{
+return jwt.sign({id},process.env.JWT_SECRET,{expiresIn:'30d'})
+}
 
 module.exports = { registerUser, loginUser, getMe };
